@@ -1,0 +1,14 @@
+<html>
+  <head></head>
+  <body>
+    Welcome to level 1 <br>
+    To begin the game type git init into the text box and press submit. This would initialize your git repository in the directory you are currently in.
+    <div id="game"></div>
+    <script type="text/javascript" src="https://rawgithub.com/craftyjs/Crafty/release/dist/crafty-min.js"></script>
+    <script type="text/javascript" src="levelOne.js"></script>
+    <form id="text_box" action="levelTwo.html" onsubmit="return checkAnswer()">
+      <input id="ua" type="text" name="user_answer"><br>
+      <input type="submit" value="Submit">
+</form>
+  </body>
+</html>
