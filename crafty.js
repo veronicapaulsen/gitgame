@@ -650,7 +650,7 @@ Crafty.c("Fourway", {
     }
 });
 
-/**@
+/**@OA
  * #Twoway
  * @category Controls
  * @trigger NewDirection - When entity has changed direction due to velocity on either x or y axis a NewDirection event is triggered. The event is triggered once, if direction is different from last frame. - { x: -1 | 0 | 1, y: -1 | 0 | 1 } - New direction
@@ -689,15 +689,15 @@ Crafty.c("Twoway", {
         this.multiway(speed || this._speed, {
             RIGHT_ARROW: 0,
             LEFT_ARROW: 180,
-            D: 0,
+		    /**      D: 0,
             A: 180,
-            Q: 180
+            Q: 180**/
         });
 
         this.jumper(jumpSpeed || speed * 2 || this._jumpSpeed, [
             Crafty.keys.UP_ARROW,
-            Crafty.keys.W,
-            Crafty.keys.Z
+            /**Crafty.keys.W,
+	       Crafty.keys.Z**/
         ]);
 
         return this;
