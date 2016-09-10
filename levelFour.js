@@ -21,11 +21,14 @@ var player = Crafty.e('2D, DOM, Color, Twoway, Gravity, Collision')
 	    else if(player.hit('Key')){
 		Crafty.log("you hit the key");
 		key = true;
+		keyEntity.color('White');
 	    }
 	})	
     .bind("HitOff", function(comp){
-            checkpoint = false;
-            Crafty.log("you are off the checkpoint");
+	    if(comp == 'Invisible_CheckPoint'){
+		checkpoint = false;
+		Crafty.log("you are off the checkpoint");
+	    }
         })	
     .twoway(200);
 Crafty.e('Wall_Left, 2D, Canvas, Color, Collision').attr({x: 0, y: 150, w: 10, h: 100}).color('Black');
@@ -33,7 +36,7 @@ Crafty.e('Floor, 2D, Canvas, Color, Collision').attr({x: 0, y: 250, w: 1250, h: 
 Crafty.e('CheckPoint, 2D, Canvas, Color, Collision, Floor').attr({x: 1000, y: 150, w: 100, h: 10}).color('Gold');
 Crafty.e('Invisible_CheckPoint, 2D, Canvas, Color, Collision').attr({x: 1000, y: 149, w: 100, h: 1}).color('White');
 //var key = Crafty.e("2D, DOM, Image").image("key.png");
-var key = Crafty.e('Key, 2D, Canvas, Color, Collision').attr({x: 800, y: 230, w: 50, h: 20}).color('Silver');
+var keyEntity = Crafty.e('Key, 2D, Canvas, Color, Collision').attr({x: 800, y: 230, w: 50, h: 20}).color('Silver');
 
 function checkAnswer(){
     var answer = document.getElementById("ua").value;
