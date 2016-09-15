@@ -1,6 +1,7 @@
 Crafty.init(1250,350, document.getElementById('game'));
 
-var checkpoint = false;
+var level_complete = false;
+var at_checkpoint = false;
 var key = false;
 
 var player = Crafty.e('2D, DOM, Color, Twoway, Gravity, Collision')
@@ -16,7 +17,7 @@ var player = Crafty.e('2D, DOM, Color, Twoway, Gravity, Collision')
 	    Crafty.log("you hit an object");
 	    if(player.hit('Invisible_CheckPoint')){
 		Crafty.log("you are at the checkpoint");
-		checkpoint = true;
+		at_checkpoint = true;
 	    }
 	    else if(player.hit('Key')){
 		Crafty.log("you hit the key");
@@ -26,7 +27,7 @@ var player = Crafty.e('2D, DOM, Color, Twoway, Gravity, Collision')
 	})	
     .bind("HitOff", function(comp){
 	    if(comp == 'Invisible_CheckPoint'){
-		checkpoint = false;
+		at_checkpoint = false;
 		Crafty.log("you are off the checkpoint");
 	    }
         })	
@@ -46,9 +47,14 @@ function checkAnswer(){
     else if(key && answer === "git add key"){
 	window.alert("You added the key to your repository! Great job! now get Plum to the checkpoint and commit. Your message should be \"Level four checkpoint\"");
     }
-    else if(checkpoint == true && answer === "git commit -m \"Level four checkpoint.\""){
+    else if(at_checkpoint == true && answer === "git commit -m \"Level four checkpoint.\""){
         window.alert("You completed level four, yay!");
-        return true;
+	level_complete = true;
     }
-    return false;
+}
+
+function checkLevelComplete(){
+    if(level_complete && at_checkpoint){
+	window.location = "levelFour.html";
+    }
 }
