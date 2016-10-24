@@ -2,12 +2,7 @@ var level_complete = false;
 
 function checkAnswer(){
     var answer = document.getElementById("ua").value;
-    //if(answer === "git init"){
-	//window.alert("You initiated your git repository! Good job! Now you can go to the next level.");
     httpPostAsync(answer);
-	//return true;
-	//}
-    //return false;
 }
 
 
@@ -16,12 +11,14 @@ function checkAnswer(){
 function httpPostAsync(answer_){
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function(){
+	var message = xmlHttp.response;
 	if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
 	    level_complete = true;
-	    window.alert("You initiated your git repository! Good job! Now you can go to the next level.");
+	    //window.alert("You initiated your git repository! Good job! Now you can go to the next level.");
+	    window.alert(message + "\n this message means you initiated your git repository! Good job! Now you can go to the next level. ");
 	}else if(xmlHttp.readyState == 4 && xmlHttp.status == 400){
             level_complete = false;
-            window.alert("Your command was wrong! Try again");
+            window.alert(message);
 	}
     }
     encoded_answer = encodeURIComponent(answer_);
