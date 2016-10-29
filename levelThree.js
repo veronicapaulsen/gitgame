@@ -29,10 +29,25 @@ Crafty.e('Invisible_CheckPoint, 2D, Canvas, Color, Collision').attr({x: 1000, y:
 
 function checkAnswer(){
     var answer = document.getElementById("ua").value;
-    if(at_checkpoint && answer === "git commit -m \"I reached my first checkpoint.\""){
-        window.alert("You made your first commit! Good job! This means your place here will always be stored, so if you get lost you can always come back to this checkpoint.");
-	level_complete = true;
+    httpPostAsync(answer);
+}
+
+function httpPostAsync(answer_){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function(){
+        var message = xmlHttp.response;
+        if(at_checkpoint && xmlHttp.readyState == 4 && xmlHttp.status == 200){
+            level_complete = true;
+            window.alert(message + "\n This message means you made your first commit! Good job! \n This means your place here will always be stored, so if you get lost you can always come back to this checkpoint. Now you can go to the next Level");
+        }else if(xmlHttp.readyState == 4 && xmlHttp.status == 400){
+            level_complete = false;
+            window.alert(message);
+        }
     }
+    encoded_answer = encodeURIComponent(answer_);
+    theUrl = "http://localhost:8080/command?cmd="+encoded_answer+"&lvl=3";
+    xmlHttp.open( "POST", theUrl, true );
+    xmlHttp.send(answer_);
 }
 
 function checkLevelComplete(){

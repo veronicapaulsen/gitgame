@@ -41,16 +41,40 @@ var keyEntity = Crafty.e('Key, 2D, Canvas, Color, Collision').attr({x: 800, y: 2
 
 function checkAnswer(){
     var answer = document.getElementById("ua").value;
-    if(key && answer === "git status"){
-	window.alert("untracked files: key. This means the key you just picked up was not added to your repository, you could lose it! Add the key to your repository the same way you added Plum.");
+    httpPostAsync(answer);
+}
+
+var added_key = false;
+var command_count = 0;
+
+function httpPostAsync(answer_){
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function(){
+        var message = xmlHttp.response;
+
+	if(key && xmlHttp.readyState == 4 && xmlHttp.status == 200 && command_count == 0){
+	    window.alert(message + "This means the key you just picked up was not added to your repository, you could lose it! Add the key to your repository the same way you added Plum.");
+	    command_count++;
+	}
+	else if(key && xmlHttp.readyState == 4 && xmlHttp.status == 200 && command_count == 1){
+	    added_key = true;
+	    window.alert(message + "You added the key to your repository! Great job! now get Plum to the checkpoint and commit. Your message should be \"Level four checkpoint\"");
+	    command_count++;
+	}
+	else if(added_key && xmlHttp.readyState == 4 && xmlHttp.status == 200){
+	    window.alert("You completed level four, yay!");
+	    level_complete = true;
+	}else if(xmlHttp.readyState == 4 && xmlHttp.status == 400){
+	    level_complete = false;
+	    window.alert(message);
+	}
     }
-    else if(key && answer === "git add key"){
-	window.alert("You added the key to your repository! Great job! now get Plum to the checkpoint and commit. Your message should be \"Level four checkpoint\"");
-    }
-    else if(at_checkpoint == true && answer === "git commit -m \"Level four checkpoint.\""){
-        window.alert("You completed level four, yay!");
-	level_complete = true;
-    }
+    encoded_answer = encodeURIComponent(answer_);
+    theUrl = "http://localhost:8080/command?cmd="+encoded_answer+"&lvl=4&key="+key;
+    xmlHttp.open( "POST", theUrl, true );
+    xmlHttp.send(answer_);
+
 }
 
 function checkLevelComplete(){

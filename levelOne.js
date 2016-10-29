@@ -22,7 +22,7 @@ function httpPostAsync(answer_){
 	}
     }
     encoded_answer = encodeURIComponent(answer_);
-    theUrl = "http://localhost:8080/command?cmd="+encoded_answer;
+    theUrl = "http://localhost:8080/command?cmd="+encoded_answer+"&lvl=1";
     xmlHttp.open( "POST", theUrl, true );
     xmlHttp.send(answer_);
 }
