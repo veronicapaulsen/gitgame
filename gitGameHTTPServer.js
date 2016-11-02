@@ -24,8 +24,42 @@ server.post('/command', function (req, res) {
                 correct_command_count++;
 		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git add key';
             }else if(correct_command_count == 2 && git_command === "git commit -m \"Level four checkpoint\""){
-                correct_command_count++;
+                correct_command_count=0;
 		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git commit -m "Level four checkpoint"';
+            }
+	}else if(level === "5"){
+	    if(git_command === "git checkout -b red"){
+		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout -b red';
+	    }else if (git_command === "git checkout -b blue"){
+                command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout -b blue';
+            }else if(git_command === "git status"){
+		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git status';
+	    }
+	}else if(level === "5.5"){
+	    if(git_command === "git checkout master"){
+		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout master';
+	    }
+	}else if(level === "6"){
+	    if(git_command === "git checkout -b red"){
+                command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout -b red';
+            }else if (git_command === "git checkout -b blue"){
+                command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout -b blue';
+            }else if(git_command === "git status"){
+                command_to_execute = 'cd ~/Desktop/myGitGameRepo && git status';
+            }
+	}else if(level === "7"){
+	    if(correct_command_count == 0 && git_command === "git commit -m \"Level seven checkpoint\""){
+		correct_command_count++;
+		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git commit -m "Level seven checkpoint" --allow-empty';		
+	    }else if(correct_command_count == 1 && git_command === "git checkout master"){
+		correct_command_count++;
+		command_to_execute = "cd ~/Desktop/myGitGameRepo && git checkout master";	    
+	    }else if(correct_command_count == 2 && git_command === "git merge red"){
+		correct_command_count=0;
+		command_to_execute = "cd ~/Desktop/myGitGameRepo && git merge red";
+	    }else if(correct_command_count == 2 && git_command === "git merge blue"){
+                correct_command_count=0;
+                command_to_execute = "cd ~/Desktop/myGitGameRepo && git merge blue";
             }
 	}
 
@@ -35,7 +69,7 @@ server.post('/command', function (req, res) {
 	    const exec = require('child_process').exec;
 	    exec(command_to_execute, (error, stdout, stderr) => {
 		    if (error) {
-			console.error(`exec error: ${error}`);
+			console.log(`exec error: ${error}`);
 			res.status(400).send(stderr);
 			console.log(`stderr: ${stderr}`);
 			return;
@@ -44,6 +78,7 @@ server.post('/command', function (req, res) {
 		    res.status(200).send(stdout);
 		});
 	}else{
+	    console.error(`exec error: Empty input received`);
 	    res.status(400).send("You didn't enter the right command! Try again");
 	}
     });

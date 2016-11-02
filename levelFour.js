@@ -79,6 +79,6 @@ function httpPostAsync(answer_){
 
 function checkLevelComplete(){
     if(level_complete && at_checkpoint){
-	window.location = "levelFour.html";
+	window.location = "levelFive.html";
     }
 }
