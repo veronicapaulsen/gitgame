@@ -63,7 +63,7 @@ function httpPostAsync(answer_){
 	    command_count++;
 	}
 	else if(added_key && xmlHttp.readyState == 4 && xmlHttp.status == 200){
-	    window.alert("You completed level four, yay!");
+	    window.alert("You completed level four, yay! Continue to the next Level");
 	    level_complete = true;
 	}else if(xmlHttp.readyState == 4 && xmlHttp.status == 400){
 	    level_complete = false;

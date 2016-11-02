@@ -2,7 +2,6 @@ Crafty.init(1250,350, document.getElementById('game'));
 
 var level_complete = false;
 var at_checkpoint = false;
-var key = false;
 
 var player = Crafty.e('2D, DOM, Color, Twoway, Gravity, Collision')
     .attr({x: 11, y: 0, w: 50, h: 50})
@@ -19,11 +18,6 @@ var player = Crafty.e('2D, DOM, Color, Twoway, Gravity, Collision')
 		Crafty.log("you are at the checkpoint");
 		at_checkpoint = true;
 	    }
-	    else if(player.hit('Key')){
-		Crafty.log("you hit the key");
-		key = true;
-		keyEntity.color('White');
-	    }
 	})	
     .bind("HitOff", function(comp){
 	    if(comp == 'Invisible_CheckPoint'){
@@ -36,15 +30,12 @@ Crafty.e('Wall_Left, 2D, Canvas, Color, Collision').attr({x: 0, y: 150, w: 10, h
 Crafty.e('Floor, 2D, Canvas, Color, Collision').attr({x: 0, y: 250, w: 1250, h: 10}).color('Black');
 Crafty.e('CheckPoint, 2D, Canvas, Color, Collision, Floor').attr({x: 1000, y: 150, w: 100, h: 10}).color('Gold');
 Crafty.e('Invisible_CheckPoint, 2D, Canvas, Color, Collision').attr({x: 1000, y: 149, w: 100, h: 1}).color('White');
-//var key = Crafty.e("2D, DOM, Image").image("key.png");
-var keyEntity = Crafty.e('Key, 2D, Canvas, Color, Collision').attr({x: 800, y: 230, w: 50, h: 20}).color('Silver');
 
 function checkAnswer(){
     var answer = document.getElementById("ua").value;
     httpPostAsync(answer);
 }
 
-var added_key = false;
 var command_count = 0;
 
 function httpPostAsync(answer_){
@@ -77,7 +68,7 @@ function httpPostAsync(answer_){
 }
 
 function checkLevelComplete(){
-    if(level_complete && at_checkpoint){
+    if(level_complete){
 	window.location = "levelSeven.html";
     }
 }

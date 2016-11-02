@@ -9,55 +9,55 @@ server.post('/command', function (req, res) {
 	level = req.query.lvl;
 	var command_to_execute = "";
 
-	if(git_command === "git init" && level === "1"){
+	if(git_command.toUpperCase() === "git init".toUpperCase() && level === "1"){
 	    command_to_execute = 'mkdir ~/Desktop/myGitGameRepo && git init ~/Desktop/myGitGameRepo';
-	}else if(git_command === "git add Plum" && level === "2"){
+	}else if(git_command.toUpperCase() === "git add Plum".toUpperCase() && level === "2"){
 	    command_to_execute = 'cd ~/Desktop/myGitGameRepo && touch Plum && git add Plum';
-	}else if(git_command === "git commit -m \"I reached my first checkpoint\"" && level === "3"){
+	}else if(git_command.toUpperCase() === "git commit -m \"Level three checkpoint\"".toUpperCase() && level === "3"){
 	    command_to_execute = 'cd ~/Desktop/myGitGameRepo && git commit -m "I reached my first checkpoint"';
 	}else if(level === "4"){
 	    key = req.query.key;
-	    if(correct_command_count == 0 && key === "true" && git_command === "git status"){
+	    if(correct_command_count == 0 && key === "true" && git_command.toUpperCase() === "git status".toUpperCase()){
 		correct_command_count++;
 		command_to_execute = 'cd ~/Desktop/myGitGameRepo && touch key && git status';
-	    }else if(correct_command_count == 1 && git_command === "git add key"){
+	    }else if(correct_command_count == 1 && git_command.toUpperCase() === "git add key".toUpperCase()){
                 correct_command_count++;
 		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git add key';
-            }else if(correct_command_count == 2 && git_command === "git commit -m \"Level four checkpoint\""){
+            }else if(correct_command_count == 2 && git_command.toUpperCase() === "git commit -m \"Level four checkpoint\"".toUpperCase()){
                 correct_command_count=0;
 		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git commit -m "Level four checkpoint"';
             }
 	}else if(level === "5"){
-	    if(git_command === "git checkout -b red"){
+	    if(git_command.toUpperCase() === "git checkout -b red".toUpperCase()){
 		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout -b red';
-	    }else if (git_command === "git checkout -b blue"){
+	    }else if (git_command.toUpperCase() === "git checkout -b blue".toUpperCase()){
                 command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout -b blue';
-            }else if(git_command === "git status"){
+            }else if(git_command.toUpperCase() === "git status".toUpperCase()){
 		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git status';
 	    }
 	}else if(level === "5.5"){
-	    if(git_command === "git checkout master"){
+	    if(git_command.toUpperCase() === "git checkout master".toUpperCase()){
 		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout master';
 	    }
 	}else if(level === "6"){
-	    if(git_command === "git checkout -b red"){
+	    if(git_command.toUpperCase() === "git checkout -b red".toUpperCase()){
                 command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout -b red';
-            }else if (git_command === "git checkout -b blue"){
+            }else if (git_command.toUpperCase() === "git checkout -b blue".toUpperCase()){
                 command_to_execute = 'cd ~/Desktop/myGitGameRepo && git checkout -b blue';
-            }else if(git_command === "git status"){
+            }else if(git_command.toUpperCase() === "git status".toUpperCase()){
                 command_to_execute = 'cd ~/Desktop/myGitGameRepo && git status';
             }
 	}else if(level === "7"){
-	    if(correct_command_count == 0 && git_command === "git commit -m \"Level seven checkpoint\""){
+	    if(correct_command_count == 0 && git_command.toUpperCase() === "git commit -m \"Level seven checkpoint\"".toUpperCase()){
 		correct_command_count++;
 		command_to_execute = 'cd ~/Desktop/myGitGameRepo && git commit -m "Level seven checkpoint" --allow-empty';		
-	    }else if(correct_command_count == 1 && git_command === "git checkout master"){
+	    }else if(correct_command_count == 1 && git_command.toUpperCase() === "git checkout master".toUpperCase()){
 		correct_command_count++;
 		command_to_execute = "cd ~/Desktop/myGitGameRepo && git checkout master";	    
-	    }else if(correct_command_count == 2 && git_command === "git merge red"){
+	    }else if(correct_command_count == 2 && git_command.toUpperCase() === "git merge red".toUpperCase()){
 		correct_command_count=0;
 		command_to_execute = "cd ~/Desktop/myGitGameRepo && git merge red";
-	    }else if(correct_command_count == 2 && git_command === "git merge blue"){
+	    }else if(correct_command_count == 2 && git_command.toUpperCase() === "git merge blue".toUpperCase()){
                 correct_command_count=0;
                 command_to_execute = "cd ~/Desktop/myGitGameRepo && git merge blue";
             }
